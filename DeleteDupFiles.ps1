@@ -1,4 +1,21 @@
-﻿Function DeleteDupFiles($Directory,$Pattern1,$Pattern2){
+﻿# NAME: 
+#    DeleteDuplicateFiles - Removes files having duplicate file names from the specified directory
+#
+#    Copyright 2015 Gustavo Lopez
+#
+# USAGE:
+#    DeleteDuplicateFiles Directory Pattern1 Pattern2
+# 
+#    Directory - The parent directory from which duplicate files will be removed
+#    Pattern1 - regular expression
+#    Pattern2 - regular expression
+
+# Example: deleteDuplicateFiles  -Directory "C:\Users\username\Documents" -Pattern1 "\(1\)" -Pattern2 "\(2\)" 
+# would delete files in the currrent directory and its subdirectories 
+# where the filename contains the string "(1)" or the string "(2)"
+# numbers inside parenthesis are a common filename pattern that occurs in Windows operating systems when files are duplicates
+
+Function DeleteDuplicateFiles($Directory,$Pattern1,$Pattern2){
     Foreach($File in Get-ChildItem $Directory -Force -Recurse)
     {
         IF ((($File.BaseName -match $Pattern1) -or ($File.BaseName -match $Pattern2)) -and (-Not($_.PSIsContainer))) {
@@ -9,11 +26,3 @@
     }
 }
 
-#Example Usage
-#Be careful when using this commmand, if you don't know what you are doing 
-#you may inadvertently delete file you did not intend to delete
-#the command below will delete files where the filename contains the string "(1)" or the string "(2)"
-#which is a common filename pattern that occurs in Windows operating systems when files are duplicates
-#obviously this is a (perhaps too) simplistic approach
-#another approach might compare filesizes, etc.
-#deleteDupFiles  -Directory "C:\Users\username\Documents" -Pattern1 "\(1\)" -Pattern2 "\(2\)" 
