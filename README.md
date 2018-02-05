@@ -1,5 +1,5 @@
-#Delete Duplicate Files
+# Delete Duplicate Files
 Script that removes files having duplicate file names from. Written in Windows Powershell.
 
-#License
+# License
 GNU GPL
